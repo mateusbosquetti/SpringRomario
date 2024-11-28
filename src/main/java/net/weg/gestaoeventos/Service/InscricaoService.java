@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import net.weg.gestaoeventos.Controller.dto.InscricaoRequestDTO;
 import net.weg.gestaoeventos.Entity.Evento;
 import net.weg.gestaoeventos.Entity.Inscricao;
+import net.weg.gestaoeventos.Repository.EventoRepository;
 import net.weg.gestaoeventos.Repository.InscricaoRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.NoSuchElementException;
 public class InscricaoService {
 
     private InscricaoRepository repository;
+    private EventoRepository eventoRepository;
 
     public Inscricao cadastro(InscricaoRequestDTO dto) {
         Inscricao inscricao = dto.conversao();
@@ -28,8 +30,9 @@ public class InscricaoService {
 
     public Inscricao trocarEvento(Integer id, Integer eventoId) {
         Inscricao inscricao = buscarUmaInscricao(id);
-
-        inscricao.setEvento();
+        Evento evento = eventoRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        inscricao.setEvento(evento);
+        return repository.save(inscricao);
     }
 
     public Inscricao buscarUmaInscricao(Integer id){
