@@ -24,7 +24,7 @@ public class InscricaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Inscricao> edicao(@RequestBody InscricaoRequestDTO dto){
+    public ResponseEntity<Inscricao> edicao(@PathVariable Integer id, @RequestBody InscricaoRequestDTO dto){
         try {
             Inscricao inscricao = inscricaoService.edicao(dto);
             return new ResponseEntity<>(inscricao, HttpStatus.OK);
