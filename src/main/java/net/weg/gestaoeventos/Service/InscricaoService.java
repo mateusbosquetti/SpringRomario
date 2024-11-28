@@ -22,4 +22,8 @@ public class InscricaoService {
         inscricao.setId(id);
         return repository.save(inscricao);
     }
+
+    public Inscricao trocarEvento(Integer id, Integer eventoId) {
+        
+    }
 }

@@ -24,10 +24,20 @@ public class InscricaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Inscricao> edicao(@PathVariable Integer id, @RequestBody InscricaoRequestDTO dto){
+    public ResponseEntity<Inscricao> edicao(@PathVariable Integer id, @RequestBody InscricaoRequestDTO dto) {
         try {
             Inscricao inscricao = inscricaoService.edicao(dto, id);
             return new ResponseEntity<>(inscricao, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PatchMapping("/")
+    public ResponseEntity<Inscricao> alterarEvento(@RequestParam Integer id, @RequestParam Integer eventoId) {
+        try {
+            Inscricao inscricao = inscricaoService.trocarEvento(id, eventoId);
+            return new ResponseEntity<>(inscricao ,HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
