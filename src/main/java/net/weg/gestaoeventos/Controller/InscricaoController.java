@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.NoSuchElementException;
+
 @RestController
 @RequestMapping("inscricao")
 public class InscricaoController {
@@ -37,10 +39,20 @@ public class InscricaoController {
     public ResponseEntity<Inscricao> alterarEvento(@RequestParam Integer id, @RequestParam Integer eventoId) {
         try {
             Inscricao inscricao = inscricaoService.trocarEvento(id, eventoId);
-            return new ResponseEntity<>(inscricao ,HttpStatus.OK);
+            return new ResponseEntity<>(inscricao, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Inscricao> buscarInscricao(@PathVariable Integer id) {
+        try {
+            return new ResponseEntity<>(inscricaoService.buscarUmaInscricao(id), HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
     }
 
 
