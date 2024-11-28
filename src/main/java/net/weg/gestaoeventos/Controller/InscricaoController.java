@@ -56,17 +56,38 @@ public class InscricaoController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<Inscricao>> buscar(){
+    public ResponseEntity<List<Inscricao>> buscar() {
         return new ResponseEntity<>(inscricaoService.buscarInscricoes(), HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id")
-    public ResponseEntity<Void> deletar(@PathVariable Integer id){
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         try {
             inscricaoService.removerInscricao(id);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/participante/{id}")
+    public ResponseEntity<List<Inscricao>> buscarInscricaoByParticipante(@PathVariable Integer idParticipante) {
+
+        List<Inscricao> inscricoes = inscricaoService.buscarPorParticipante(idParticipante);
+        if (inscricoes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(inscricoes, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/evento/{id}")
+    public ResponseEntity<List<Inscricao>> buscarInscricaoByEvento(@PathVariable Integer idEvento) {
+        List<Inscricao> inscricoes = inscricaoService.buscarPorEvento(idEvento);
+        if (inscricoes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(inscricoes, HttpStatus.OK);
         }
     }
 

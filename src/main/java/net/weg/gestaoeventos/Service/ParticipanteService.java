@@ -1,5 +1,7 @@
 package net.weg.gestaoeventos.Service;
 
+import lombok.AllArgsConstructor;
+import net.weg.gestaoeventos.Entity.Inscricao;
 import net.weg.gestaoeventos.Entity.Participante;
 import net.weg.gestaoeventos.Repository.ParticipanteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +12,11 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ParticipanteService {
 
-    @Autowired
     private ParticipanteRepository participanteRepository;
+    private InscricaoService inscricaoService;
 
 
     public Participante cadastro(Participante participante) {
@@ -50,6 +53,7 @@ public class ParticipanteService {
     }
 
     public void remover(Integer id) {
+        inscricaoService.removerPorIdParticipante(id);
         participanteRepository.deleteById(id);
     }
 

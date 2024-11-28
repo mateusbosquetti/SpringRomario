@@ -49,4 +49,18 @@ public class InscricaoService {
         repository.delete(buscarUmaInscricao(id));
     }
 
+    public void removerPorIdParticipante(Integer idParticipante) {
+        repository.deleteAllByParticipante_Id(idParticipante);
+    }
+
+    public List<Inscricao> buscarPorParticipante(Integer idParticipante) {
+        return repository.findAllByParticipante_Id(idParticipante);
+    }
+
+    public List<Inscricao> buscarPorEvento(Integer idEvento) {
+        return repository.findAllByEvento_Id(idEvento);
+    }
+
+
+
 }

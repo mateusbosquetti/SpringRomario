@@ -11,5 +11,9 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
     //@Query para criar comando sql
     //Ele entende o que deve fazer pelo nome do método
     //O _ diz que você ta procurando dentro da classe
-    List<Inscricao> findByParticipante_Id(Integer idParticipante);
+
+    void deleteAllByParticipante_Id(Integer idParticipante);
+
+    List<Inscricao> findAllByParticipante_Id(Integer idParticipante);
+    List<Inscricao> findAllByEvento_Id(Integer idEvento);
 }
