@@ -44,4 +44,9 @@ public class InscricaoService {
     public List<Inscricao> buscarInscricoes() {
         return repository.findAll();
     }
+
+    public void removerInscricao(Integer id){
+        repository.delete(buscarUmaInscricao(id));
+    }
+
 }

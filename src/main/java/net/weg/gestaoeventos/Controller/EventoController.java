@@ -55,6 +55,4 @@ public class EventoController {
         return eventoRepository.findAll();
     }
 
-
-
 }

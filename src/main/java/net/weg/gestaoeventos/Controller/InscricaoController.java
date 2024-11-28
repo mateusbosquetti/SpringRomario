@@ -60,5 +60,15 @@ public class InscricaoController {
         return new ResponseEntity<>(inscricaoService.buscarInscricoes(), HttpStatus.NO_CONTENT);
     }
 
+    @DeleteMapping("/{id")
+    public ResponseEntity<Void> deletar(@PathVariable Integer id){
+        try {
+            inscricaoService.removerInscricao(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        }
+    }
+
 
 }
