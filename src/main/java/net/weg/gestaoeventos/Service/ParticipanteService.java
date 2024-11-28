@@ -19,16 +19,16 @@ public class ParticipanteService {
     private InscricaoService inscricaoService;
 
 
-    public Participante cadastro(Participante participante) {
+    public Participante adicionarParticipante(Participante participante) {
         return participanteRepository.save(participante);
     }
 
-    public Participante editar(Integer id, Participante participante) {
+    public Participante editarParticipante(Integer id, Participante participante) {
         participante.setId(id);
         return participanteRepository.save(participante);
     }
 
-    public Participante buscar(Integer id) {
+    public Participante buscarParticipantePeloID(Integer id) {
 
         return participanteRepository.findById(id).orElseThrow(NoSuchElementException::new);
         //Outro modo
@@ -42,27 +42,29 @@ public class ParticipanteService {
 
     }
 
-    public List<Participante> buscar() {
+    public List<Participante> buscarParticipantes() {
         return participanteRepository.findAll();
     }
 
-    public void alterarEmail(Integer id, String email) {
-        Participante participante = buscar(id);
-        participante.setEmail(email);
-        participanteRepository.save(participante);
-    }
-
-    public void remover(Integer id) {
-        inscricaoService.removerPorIdParticipante(id);
-        participanteRepository.deleteById(id);
-    }
-
-    public Participante buscar(String email){
+    public Participante buscarParticipantePeloEmail(String email) {
         Optional<Participante> participante = participanteRepository.findByEmail(email);
-        if (participante.isPresent()){
+        if (participante.isPresent()) {
             return participante.get();
         }
         throw new NoSuchElementException();
     }
+
+    public void editarEmail(Integer id, String email) {
+        Participante participante = buscarParticipantePeloID(id);
+        participante.setEmail(email);
+        participanteRepository.save(participante);
+    }
+
+    public void removerParticipante(Integer id) {
+        inscricaoService.removerPorIdParticipante(id);
+        participanteRepository.deleteById(id);
+    }
+
+
 
 }

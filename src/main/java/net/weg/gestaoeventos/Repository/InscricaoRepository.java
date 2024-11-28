@@ -13,7 +13,6 @@ public interface InscricaoRepository extends JpaRepository<Inscricao, Integer> {
     //O _ diz que você ta procurando dentro da classe
 
     void deleteAllByParticipante_Id(Integer idParticipante);
-
     List<Inscricao> findAllByParticipante_Id(Integer idParticipante);
     List<Inscricao> findAllByEvento_Id(Integer idEvento);
 }

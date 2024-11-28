@@ -15,30 +15,38 @@ public class EventoService {
 
     private EventoRepository repository;
 
-    public Evento cadastro(Evento evento) {
+    public Evento adicionarEvento(Evento evento) {
         return repository.save(evento);
     }
 
-    public Evento editar(Integer id, Evento evento) {
-        evento.setId(id);
-        return repository.save(evento);
+    public Evento editarEvento(Integer id, Evento evento) {
+        if (repository.existsById(id)) {
+            evento.setId(id);
+            return repository.save(evento);
+        }
+        throw new NoSuchElementException();
     }
 
-    public Evento buscar(Integer id) {
+    public Evento buscarEventoPeloID(Integer id) {
         return repository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
-    public List<Evento> buscar() {
+    public List<Evento> buscarEventoPeloNome(String nome) {
+        return repository.findByNome(nome);
+    }
+
+    public List<Evento> buscarEventos() {
         return repository.findAll();
     }
 
-    public void alterarData(Integer id, String data) {
-        Evento evento = buscar(id);
+
+    public void editarData(Integer id, String data) {
+        Evento evento = buscarEventoPeloID(id);
         evento.setData(data);
         repository.save(evento);
     }
 
-    public void remover(Integer id) {
+    public void removerEvento(Integer id) {
         repository.deleteById(id);
     }
 

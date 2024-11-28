@@ -19,7 +19,7 @@ public class InscricaoController {
     @PostMapping
     public ResponseEntity<Inscricao> cadastro(@RequestBody InscricaoRequestDTO dto) {
         try {
-            Inscricao inscricao = inscricaoService.cadastro(dto);
+            Inscricao inscricao = inscricaoService.adicionarInscricao(dto);
             return new ResponseEntity<>(inscricao, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -29,7 +29,7 @@ public class InscricaoController {
     @PutMapping("/{id}")
     public ResponseEntity<Inscricao> edicao(@PathVariable Integer id, @RequestBody InscricaoRequestDTO dto) {
         try {
-            Inscricao inscricao = inscricaoService.edicao(dto, id);
+            Inscricao inscricao = inscricaoService.editarInscricao(dto, id);
             return new ResponseEntity<>(inscricao, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -39,7 +39,7 @@ public class InscricaoController {
     @PatchMapping("/")
     public ResponseEntity<Inscricao> alterarEvento(@RequestParam Integer id, @RequestParam Integer eventoId) {
         try {
-            Inscricao inscricao = inscricaoService.trocarEvento(id, eventoId);
+            Inscricao inscricao = inscricaoService.editarEvento(id, eventoId);
             return new ResponseEntity<>(inscricao, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -49,7 +49,7 @@ public class InscricaoController {
     @GetMapping("/{id}")
     public ResponseEntity<Inscricao> buscarInscricao(@PathVariable Integer id) {
         try {
-            return new ResponseEntity<>(inscricaoService.buscarUmaInscricao(id), HttpStatus.OK);
+            return new ResponseEntity<>(inscricaoService.buscarInscricaoPeloID(id), HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -70,7 +70,7 @@ public class InscricaoController {
         }
     }
 
-    @GetMapping("/participante/{id}")
+    @GetMapping("/participante/{idParticipante}")
     public ResponseEntity<List<Inscricao>> buscarInscricaoByParticipante(@PathVariable Integer idParticipante) {
 
         List<Inscricao> inscricoes = inscricaoService.buscarPorParticipante(idParticipante);
@@ -81,7 +81,7 @@ public class InscricaoController {
         }
     }
 
-    @GetMapping("/evento/{id}")
+    @GetMapping("/evento/{idEvento}")
     public ResponseEntity<List<Inscricao>> buscarInscricaoByEvento(@PathVariable Integer idEvento) {
         List<Inscricao> inscricoes = inscricaoService.buscarPorEvento(idEvento);
         if (inscricoes.isEmpty()) {

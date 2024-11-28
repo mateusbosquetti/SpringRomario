@@ -19,25 +19,25 @@ public class InscricaoService {
     private InscricaoRepository repository;
     private EventoRepository eventoRepository;
 
-    public Inscricao cadastro(InscricaoRequestDTO dto) {
+    public Inscricao adicionarInscricao(InscricaoRequestDTO dto) {
         Inscricao inscricao = dto.conversao();
         return repository.save(inscricao);
     }
 
-    public Inscricao edicao(InscricaoRequestDTO dto, Integer id) {
+    public Inscricao editarInscricao(InscricaoRequestDTO dto, Integer id) {
         Inscricao inscricao = dto.conversao();
         inscricao.setId(id);
         return repository.save(inscricao);
     }
 
-    public Inscricao trocarEvento(Integer id, Integer eventoId) {
-        Inscricao inscricao = buscarUmaInscricao(id);
+    public Inscricao editarEvento(Integer id, Integer eventoId) {
+        Inscricao inscricao = buscarInscricaoPeloID(id);
         Evento evento = eventoRepository.findById(id).orElseThrow(NoSuchElementException::new);
         inscricao.setEvento(evento);
         return repository.save(inscricao);
     }
 
-    public Inscricao buscarUmaInscricao(Integer id){
+    public Inscricao buscarInscricaoPeloID(Integer id){
         return repository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
@@ -46,7 +46,7 @@ public class InscricaoService {
     }
 
     public void removerInscricao(Integer id){
-        repository.delete(buscarUmaInscricao(id));
+        repository.delete(buscarInscricaoPeloID(id));
     }
 
     public void removerPorIdParticipante(Integer idParticipante) {
