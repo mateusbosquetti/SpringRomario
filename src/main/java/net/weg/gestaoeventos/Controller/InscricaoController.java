@@ -26,7 +26,7 @@ public class InscricaoController {
     @PutMapping("/{id}")
     public ResponseEntity<Inscricao> edicao(@PathVariable Integer id, @RequestBody InscricaoRequestDTO dto){
         try {
-            Inscricao inscricao = inscricaoService.edicao(dto);
+            Inscricao inscricao = inscricaoService.edicao(dto, id);
             return new ResponseEntity<>(inscricao, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

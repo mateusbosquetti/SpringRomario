@@ -16,4 +16,10 @@ public class InscricaoService {
         Inscricao inscricao = dto.conversao();
         return repository.save(inscricao);
     }
+
+    public Inscricao edicao(InscricaoRequestDTO dto, Integer id) {
+        Inscricao inscricao = dto.conversao();
+        inscricao.setId(id);
+        return repository.save(inscricao);
+    }
 }
