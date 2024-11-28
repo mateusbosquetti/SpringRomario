@@ -52,4 +52,13 @@ public class ParticipanteService {
     public void remover(Integer id) {
         participanteRepository.deleteById(id);
     }
+
+    public Participante buscar(String email){
+        Optional<Participante> participante = participanteRepository.findByEmail(email);
+        if (participante.isPresent()){
+            return participante.get();
+        }
+        throw new NoSuchElementException();
+    }
+
 }
