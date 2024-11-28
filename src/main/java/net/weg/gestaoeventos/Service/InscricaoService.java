@@ -6,8 +6,10 @@ import net.weg.gestaoeventos.Entity.Evento;
 import net.weg.gestaoeventos.Entity.Inscricao;
 import net.weg.gestaoeventos.Repository.EventoRepository;
 import net.weg.gestaoeventos.Repository.InscricaoRepository;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -39,4 +41,7 @@ public class InscricaoService {
         return repository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
+    public List<Inscricao> buscarInscricoes() {
+        return repository.findAll();
+    }
 }
