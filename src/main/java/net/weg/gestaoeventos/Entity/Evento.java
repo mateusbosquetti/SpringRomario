@@ -2,8 +2,10 @@ package net.weg.gestaoeventos.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.Generated;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -24,9 +26,13 @@ public class Evento {
     //SEQUENCE: No escopo do banco, ignora as tabelas, todas as tabelas nao repetem os valores
     //UUID: Identificador unico no mundo inteiro
 
+    @NotNull
     private String nome;
+    @NotNull
     private String local;
+    @NotNull
     private String data;
+    @NotNull
     private String descricao;
 
     //Um evento pode ter muitas inscricoes

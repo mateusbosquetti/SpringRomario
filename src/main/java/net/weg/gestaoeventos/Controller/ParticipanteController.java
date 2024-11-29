@@ -20,14 +20,20 @@ public class ParticipanteController {
 
     @PostMapping()
     public ResponseEntity<Participante> cadastroParticipante(@RequestBody Participante participante) {
-        participante = participanteService.adicionarParticipante(participante);
-        return new ResponseEntity<>(participante, HttpStatus.CREATED);
+        try {
+            return new ResponseEntity<>(participanteService.adicionarParticipante(participante), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Participante> editarParticipante(@PathVariable Integer id, @RequestBody Participante participante) {
-        participante = participanteService.editarParticipante(id, participante);
-        return new ResponseEntity<>(participante, HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(participanteService.editarParticipante(id, participante), HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @PatchMapping()
@@ -42,15 +48,18 @@ public class ParticipanteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> removerParticipante(@PathVariable Integer id) {
-        participanteService.removerParticipante(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            participanteService.removerParticipante(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Participante> buscarParticipantes(@PathVariable Integer id) {
         try {
-            Participante participante = participanteService.buscarParticipantePeloID(id);
-            return new ResponseEntity<>(participante, HttpStatus.OK);
+            return new ResponseEntity<>(participanteService.buscarParticipantePeloID(id), HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -68,8 +77,7 @@ public class ParticipanteController {
     @GetMapping("/email")
     public ResponseEntity<Participante> buscarParticipantes(@RequestParam String email) {
         try {
-            Participante participante = participanteService.buscarParticipantePeloEmail(email);
-            return new ResponseEntity<>(participante, HttpStatus.OK);
+            return new ResponseEntity<>(participanteService.buscarParticipantePeloEmail(email), HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }

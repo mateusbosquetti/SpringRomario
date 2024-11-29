@@ -69,7 +69,7 @@ public class EventoController {
         }
     }
 
-    @GetMapping("/getAll/nome/{nome}")
+    @GetMapping("/getNome/{nome}")
     public ResponseEntity<List<Evento>> getEventosByName(@PathVariable String nome) {
         List<Evento> eventos = eventoService.buscarEventoPeloNome(nome);
         if (!eventos.isEmpty()) {
@@ -78,7 +78,7 @@ public class EventoController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public ResponseEntity<List<Evento>> getEventos() {
         List<Evento> eventos = eventoService.buscarEventos();
         if (!eventos.isEmpty()) {
