@@ -13,10 +13,10 @@
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Integer id;
 
-        @ManyToOne(cascade = CascadeType.REMOVE)
+        @ManyToOne
         @NotNull
         private Evento evento;
-        @ManyToOne(cascade = CascadeType.REMOVE)
+        @ManyToOne
         @NotNull
         private Participante participante;
 

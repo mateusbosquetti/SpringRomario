@@ -27,7 +27,7 @@ public class Participante {
 
     //Um participante pode ter muitas inscrições
     //O relacionamento está sobre responsabilidade do atributo eveno
-    @OneToMany(mappedBy = "participante")
+    @OneToMany(mappedBy = "participante", cascade = CascadeType.REMOVE)
     @JsonIgnore
     @ToString.Exclude
     private List<Inscricao> inscricoes = new ArrayList<>();

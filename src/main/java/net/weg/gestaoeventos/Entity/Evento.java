@@ -37,7 +37,7 @@ public class Evento {
 
     //Um evento pode ter muitas inscricoes
     //"As incricoes estão sobre responsabilidade do atributo evento"
-    @OneToMany(mappedBy = "evento")
+    @OneToMany(mappedBy = "evento", cascade = CascadeType.REMOVE)
     @JsonIgnore
     @ToString.Exclude
     private List<Inscricao> inscricoes = new ArrayList<>();
