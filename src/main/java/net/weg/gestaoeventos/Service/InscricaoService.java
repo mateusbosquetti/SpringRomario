@@ -18,14 +18,15 @@ public class InscricaoService {
 
     private InscricaoRepository repository;
     private EventoService eventoService;
+    private ParticipanteService participanteService;
 
     public Inscricao adicionarInscricao(InscricaoRequestDTO dto) {
-        Inscricao inscricao = dto.conversao();
+        Inscricao inscricao = convertToEntity(dto);
         return repository.save(inscricao);
     }
 
     public Inscricao editarInscricao(InscricaoRequestDTO dto, Integer id) {
-        Inscricao inscricao = dto.conversao();
+        Inscricao inscricao = convertToEntity(dto);
         inscricao.setId(id);
         return repository.save(inscricao);
     }
@@ -66,5 +67,11 @@ public class InscricaoService {
         return repository.findAllByEvento_Id(idEvento);
     }
 
+    private Inscricao convertToEntity (InscricaoRequestDTO dto){
+        Inscricao inscricao = new Inscricao();
+        inscricao.setEvento(eventoService.buscarEventoPeloID(dto.getEventoId()));
+        inscricao.setParticipante(participanteService.buscarParticipantePeloID(dto.getParticipanteId()));
+        return inscricao;
+    }
 
 }

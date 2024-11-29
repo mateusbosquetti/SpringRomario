@@ -11,6 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Data
 @AllArgsConstructor
 public class InscricaoRequestDTO {
+
+    private int eventoId;
+    private int participanteId;
+
+    /*
     private Evento evento;
     private Participante participante;
 
@@ -20,5 +25,7 @@ public class InscricaoRequestDTO {
         inscricao.setParticipante(this.getParticipante());
         return inscricao;
     }
+
+     */
 
 }

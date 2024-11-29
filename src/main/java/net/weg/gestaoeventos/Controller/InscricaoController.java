@@ -1,5 +1,6 @@
 package net.weg.gestaoeventos.Controller;
 
+import lombok.AllArgsConstructor;
 import net.weg.gestaoeventos.Controller.dto.InscricaoRequestDTO;
 import net.weg.gestaoeventos.Entity.Inscricao;
 import net.weg.gestaoeventos.Service.InscricaoService;
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/inscricao")
+@AllArgsConstructor
 public class InscricaoController {
 
     private InscricaoService inscricaoService;
@@ -21,6 +23,7 @@ public class InscricaoController {
         try {
             return new ResponseEntity<>(inscricaoService.adicionarInscricao(dto), HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }

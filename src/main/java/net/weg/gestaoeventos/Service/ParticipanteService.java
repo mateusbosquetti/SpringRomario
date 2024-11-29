@@ -16,7 +16,7 @@ import java.util.Optional;
 public class ParticipanteService {
 
     private ParticipanteRepository repository;
-    private InscricaoService inscricaoService;
+    //private InscricaoService inscricaoService;
 
 
     public Participante adicionarParticipante(Participante participante) {
@@ -65,7 +65,7 @@ public class ParticipanteService {
 
     public void removerParticipante(Integer id) {
         if (repository.existsById(id)) {
-            inscricaoService.removerPorIdParticipante(id);
+            //inscricaoService.removerPorIdParticipante(id);
             repository.deleteById(id);
         }
         throw new NoSuchElementException();
