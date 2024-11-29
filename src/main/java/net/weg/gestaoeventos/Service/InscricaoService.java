@@ -26,9 +26,13 @@ public class InscricaoService {
     }
 
     public Inscricao editarInscricao(InscricaoRequestDTO dto, Integer id) {
-        Inscricao inscricao = convertToEntity(dto);
-        inscricao.setId(id);
-        return repository.save(inscricao);
+        if (repository.existsById(id)) {
+            Inscricao inscricao = convertToEntity(dto);
+            inscricao.setId(id);
+            return repository.save(inscricao);
+        } else  {
+            throw new NoSuchElementException();
+        }
     }
 
     public Inscricao editarEvento(Integer id, Integer eventoId) {
@@ -67,7 +71,7 @@ public class InscricaoService {
         return repository.findAllByEvento_Id(idEvento);
     }
 
-    private Inscricao convertToEntity (InscricaoRequestDTO dto){
+    private Inscricao convertToEntity(InscricaoRequestDTO dto) {
         Inscricao inscricao = new Inscricao();
         inscricao.setEvento(eventoService.buscarEventoPeloID(dto.getEventoId()));
         inscricao.setParticipante(participanteService.buscarParticipantePeloID(dto.getParticipanteId()));
