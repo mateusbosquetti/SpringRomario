@@ -37,7 +37,7 @@ public class InscricaoController {
         }
     }
 
-    @PatchMapping("/")
+    @PatchMapping()
     public ResponseEntity<Inscricao> patchEventoInscricao(@RequestParam Integer id, @RequestParam Integer eventoId) {
         try {
             return new ResponseEntity<>(inscricaoService.editarEvento(id, eventoId), HttpStatus.OK);
