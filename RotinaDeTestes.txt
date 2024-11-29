@@ -1,7 +1,7 @@
 Relatório de Testes
 
 Evento
-Post Evento Criando com atributos nulos
+Post Evento Tudo certo
 Get Eventos Tudo certo
 Get Evento ID Tudo certo
 Get Eventos Nome Tudo certo
@@ -11,8 +11,18 @@ Patch Evento Tudo certo
 
 Participante
 Get Participantes Tudo certo
+Get Participantes Email Tudo certo
 Get Participante ID Tudo certo
-Post Participante Criando com atributos nulos
+Post Participante Tudo certo
 Delete Participante Só Retorna 204
+Put Evento Tudo certo
+Patch Evento Tudo certo
 
+Inscricao
+Post Inscricao Tudo certo
+Get Inscricoes Tudo certo
+Get Inscricao ID Tudo certo
+PUT Inscricao Tudo certo
+Delete Inscricao Tudo certo
+PATCH Inscricao Tudo certo
 
