@@ -15,22 +15,25 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ParticipanteService {
 
-    private ParticipanteRepository participanteRepository;
+    private ParticipanteRepository repository;
     private InscricaoService inscricaoService;
 
 
     public Participante adicionarParticipante(Participante participante) {
-        return participanteRepository.save(participante);
+        return repository.save(participante);
     }
 
     public Participante editarParticipante(Integer id, Participante participante) {
-        participante.setId(id);
-        return participanteRepository.save(participante);
+        if (repository.existsById(id)) {
+            participante.setId(id);
+            return repository.save(participante);
+        }
+        throw new NoSuchElementException();
     }
 
     public Participante buscarParticipantePeloID(Integer id) {
 
-        return participanteRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        return repository.findById(id).orElseThrow(NoSuchElementException::new);
         //Outro modo
         /*
         Optional<Participante> optional = participanteRepository.findById(id);
@@ -43,11 +46,11 @@ public class ParticipanteService {
     }
 
     public List<Participante> buscarParticipantes() {
-        return participanteRepository.findAll();
+        return repository.findAll();
     }
 
     public Participante buscarParticipantePeloEmail(String email) {
-        Optional<Participante> participante = participanteRepository.findByEmail(email);
+        Optional<Participante> participante = repository.findByEmail(email);
         if (participante.isPresent()) {
             return participante.get();
         }
@@ -57,14 +60,16 @@ public class ParticipanteService {
     public void editarEmail(Integer id, String email) {
         Participante participante = buscarParticipantePeloID(id);
         participante.setEmail(email);
-        participanteRepository.save(participante);
+        repository.save(participante);
     }
 
     public void removerParticipante(Integer id) {
-        inscricaoService.removerPorIdParticipante(id);
-        participanteRepository.deleteById(id);
+        if (repository.existsById(id)) {
+            inscricaoService.removerPorIdParticipante(id);
+            repository.deleteById(id);
+        }
+        throw new NoSuchElementException();
     }
-
 
 
 }

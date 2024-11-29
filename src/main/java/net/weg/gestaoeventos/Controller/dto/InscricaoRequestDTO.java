@@ -12,6 +12,8 @@ public class InscricaoRequestDTO {
     private Evento evento;
     private Participante participante;
 
+
+
     public Inscricao conversao(){
         Inscricao inscricao = new Inscricao();
         inscricao.setEvento(this.getEvento());

@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
 public class InscricaoService {
 
     private InscricaoRepository repository;
-    private EventoRepository eventoRepository;
+    private EventoService eventoService;
 
     public Inscricao adicionarInscricao(InscricaoRequestDTO dto) {
         Inscricao inscricao = dto.conversao();
@@ -32,12 +32,12 @@ public class InscricaoService {
 
     public Inscricao editarEvento(Integer id, Integer eventoId) {
         Inscricao inscricao = buscarInscricaoPeloID(id);
-        Evento evento = eventoRepository.findById(id).orElseThrow(NoSuchElementException::new);
+        Evento evento = eventoService.buscarEventoPeloID(eventoId);
         inscricao.setEvento(evento);
         return repository.save(inscricao);
     }
 
-    public Inscricao buscarInscricaoPeloID(Integer id){
+    public Inscricao buscarInscricaoPeloID(Integer id) {
         return repository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
@@ -45,12 +45,17 @@ public class InscricaoService {
         return repository.findAll();
     }
 
-    public void removerInscricao(Integer id){
-        repository.delete(buscarInscricaoPeloID(id));
+    public void removerInscricao(Integer id) {
+        buscarInscricaoPeloID(id);
+        repository.deleteById(id);
     }
 
     public void removerPorIdParticipante(Integer idParticipante) {
         repository.deleteAllByParticipante_Id(idParticipante);
+    }
+
+    public void removerPorIdEvento(Integer idEvento) {
+        repository.deleteAllByEvento_Id(idEvento);
     }
 
     public List<Inscricao> buscarPorParticipante(Integer idParticipante) {
@@ -60,7 +65,6 @@ public class InscricaoService {
     public List<Inscricao> buscarPorEvento(Integer idEvento) {
         return repository.findAllByEvento_Id(idEvento);
     }
-
 
 
 }
