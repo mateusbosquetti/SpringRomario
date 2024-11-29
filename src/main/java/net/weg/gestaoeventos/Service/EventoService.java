@@ -14,7 +14,7 @@ import java.util.NoSuchElementException;
 public class EventoService {
 
     private EventoRepository repository;
-    private InscricaoService inscricaoService;
+    //private InscricaoService inscricaoService;
 
     public Evento adicionarEvento(Evento evento) {
         return repository.save(evento);
@@ -48,9 +48,10 @@ public class EventoService {
 
     public void removerEvento(Integer id) {
         if (repository.existsById(id)) {
-            inscricaoService.removerPorIdEvento(id);
+            //inscricaoService.removerPorIdEvento(id);
             repository.deleteById(id);
         }
         throw new NoSuchElementException();
     }
+
 }

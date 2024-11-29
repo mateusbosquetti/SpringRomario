@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/participantes")
+@RequestMapping("/participante")
 @AllArgsConstructor
 public class ParticipanteController {
 
@@ -24,7 +24,7 @@ public class ParticipanteController {
         return new ResponseEntity<>(participante, HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Participante> editarParticipante(@PathVariable Integer id, @RequestBody Participante participante) {
         participante = participanteService.editarParticipante(id, participante);
         return new ResponseEntity<>(participante, HttpStatus.OK);

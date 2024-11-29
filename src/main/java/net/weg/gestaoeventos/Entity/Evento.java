@@ -1,8 +1,10 @@
 package net.weg.gestaoeventos.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Generated;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,8 @@ public class Evento {
     //Um evento pode ter muitas inscricoes
     //"As incricoes estão sobre responsabilidade do atributo evento"
     @OneToMany(mappedBy = "evento")
+    @JsonIgnore
+    @ToString.Exclude
     private List<Inscricao> inscricoes = new ArrayList<>();
 
 }

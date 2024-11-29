@@ -21,7 +21,7 @@ public class EventoController {
     private EventoService eventoService;
     //.save, caso ja haja um item no bd com o msm id, ele só atualiza, senao ele adiciona
 
-    @PostMapping("/save")
+    @PostMapping()
     public ResponseEntity<Evento> postEvento(@RequestBody Evento evento) {
         try {
             return new ResponseEntity<>(eventoService.adicionarEvento(evento), HttpStatus.CREATED);
@@ -30,7 +30,7 @@ public class EventoController {
         }
     }
 
-    @PutMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Evento> updateEvento(@RequestBody Evento evento, @PathVariable Integer id) {
         try {
             return new ResponseEntity<>(eventoService.editarEvento(id, evento), HttpStatus.OK);
@@ -39,7 +39,7 @@ public class EventoController {
         }
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEvento(@PathVariable Integer id) {
         try {
             eventoService.removerEvento(id);
@@ -49,7 +49,7 @@ public class EventoController {
         }
     }
 
-    @PatchMapping("/patch")
+    @PatchMapping()
     public ResponseEntity<Evento> patchDataEvento(@RequestParam(name = "") Integer id, @RequestParam String data) {
         try {
             return new ResponseEntity<>(eventoService.editarData(id, data), HttpStatus.OK);
@@ -60,19 +60,31 @@ public class EventoController {
         }
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Evento> getEventoById(@PathVariable Integer id) {
-        return eventoService.buscarEventoPeloID(id);
+        try {
+            return new ResponseEntity<>(eventoService.buscarEventoPeloID(id), HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 
     @GetMapping("/getAll/nome/{nome}")
     public ResponseEntity<List<Evento>> getEventosByName(@PathVariable String nome) {
-        return eventoService.buscarEventoPeloNome(nome);
+        List<Evento> eventos = eventoService.buscarEventoPeloNome(nome);
+        if (!eventos.isEmpty()) {
+            return new ResponseEntity<>(eventos, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<List<Evento>> getEventos() {
-        return eventoService.buscarEventos();
+        List<Evento> eventos = eventoService.buscarEventos();
+        if (!eventos.isEmpty()) {
+            return new ResponseEntity<>(eventos, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

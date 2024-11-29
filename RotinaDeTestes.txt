@@ -1,0 +1,12 @@
+Relatório de Testes
+
+Evento
+Post Evento Tudo certo
+Get Eventos Tudo certo
+Get Evento ID Tudo certo
+Get Eventos Nome Tudo certo
+Delete Evento Só Retorna 204
+Put Evento Tudo certo
+Patch Evento Tudo certo
+
+
