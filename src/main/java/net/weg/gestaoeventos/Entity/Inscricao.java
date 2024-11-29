@@ -1,6 +1,7 @@
     package net.weg.gestaoeventos.Entity;
 
     import jakarta.persistence.*;
+    import jakarta.validation.constraints.NotNull;
     import lombok.Data;
 
     @Entity
@@ -13,8 +14,10 @@
         private Integer id;
 
         @ManyToOne
+        @NotNull
         private Evento evento;
         @ManyToOne
+        @NotNull
         private Participante participante;
 
     }

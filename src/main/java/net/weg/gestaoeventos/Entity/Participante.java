@@ -5,13 +5,14 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.ToString;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
-@Table(name = "participante")
+@Table(name = "participante", uniqueConstraints = {@UniqueConstraint(columnNames = {"email"})})
 public class Participante {
 
     @Id
